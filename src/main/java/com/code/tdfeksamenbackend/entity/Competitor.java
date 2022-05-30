@@ -1,11 +1,13 @@
 package com.code.tdfeksamenbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.yaml.snakeyaml.events.Event;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +27,12 @@ public class Competitor {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
+
+    @JsonBackReference(value = "cStageLineItems")
+    @OneToMany(mappedBy = "competitor", cascade = CascadeType.MERGE)
+    @ToString.Exclude
+    private List<StageLineItem> stageLineItems;
+
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
