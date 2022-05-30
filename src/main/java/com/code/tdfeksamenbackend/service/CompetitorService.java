@@ -1,10 +1,13 @@
 package com.code.tdfeksamenbackend.service;
 
 import com.code.tdfeksamenbackend.entity.Competitor;
+import com.code.tdfeksamenbackend.exception.ApiBadRequestException;
+import com.code.tdfeksamenbackend.exception.ApiNotFoundException;
 import com.code.tdfeksamenbackend.repository.CompetitorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompetitorService {
@@ -28,6 +31,14 @@ public class CompetitorService {
     }
 
     public List<Competitor> findAllByTeamId(Long id) {
-        return competitorRepository.findAllByTeamId(id).orElseThrow();
+        List<Competitor> competitors = competitorRepository
+                .findAllByTeamId(id)
+                .orElseThrow(() -> new ApiBadRequestException("Bad request"));
+
+        if (competitors.size() == 0) {
+            throw new ApiNotFoundException("No competitors found with team id: " + id);
+        } else {
+            return competitors;
+        }
     }
 }
