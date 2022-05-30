@@ -1,14 +1,12 @@
 package com.code.tdfeksamenbackend.config;
 
-import com.code.tdfeksamenbackend.entity.Competitor;
-import com.code.tdfeksamenbackend.entity.Country;
-import com.code.tdfeksamenbackend.entity.Team;
-import com.code.tdfeksamenbackend.service.CompetitorService;
-import com.code.tdfeksamenbackend.service.CountryService;
-import com.code.tdfeksamenbackend.service.TeamService;
+import com.code.tdfeksamenbackend.entity.*;
+import com.code.tdfeksamenbackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class InitData implements CommandLineRunner {
@@ -16,20 +14,41 @@ public class InitData implements CommandLineRunner {
     private final CompetitorService competitorService;
     private final CountryService countryService;
     private final TeamService teamService;
+    private final StageService stageService;
+    private final StageLineItemService stageLineItemService;
 
     @Autowired
     public InitData(
             CompetitorService competitorService,
             CountryService countryService,
-            TeamService teamService
+            TeamService teamService,
+            StageService stageService,
+            StageLineItemService stageLineItemService
     ) {
         this.competitorService = competitorService;
         this.countryService = countryService;
         this.teamService = teamService;
+        this.stageService = stageService;
+        this.stageLineItemService = stageLineItemService;
     }
 
     @Override
     public void run(String... args) {
+        // Stages
+        Stage stage1 = new Stage();
+        stage1.setDate(LocalDateTime.now());
+
+        Stage stage2 = new Stage();
+        stage2.setDate(LocalDateTime.now());
+
+        Stage stage3 = new Stage();
+        stage3.setDate(LocalDateTime.now());
+
+        Stage savedStage1 = stageService.save(stage1);
+        Stage savedStage2 = stageService.save(stage2);
+        Stage savedStage3 = stageService.save(stage3);
+
+
         // Countries
         Country country1 = new Country();
         country1.setName("Denmark");
@@ -65,7 +84,27 @@ public class InitData implements CommandLineRunner {
         competitor2.setCountry(savedCountry2);
         competitor2.setTeam(savedTeam2);
 
-        competitorService.save(competitor1);
-        competitorService.save(competitor2);
+        Competitor savedCompetitor1 = competitorService.save(competitor1);
+        Competitor savedCompetitor2 = competitorService.save(competitor2);
+
+        // StageLineItems
+        StageLineItem stageLineItem1 = new StageLineItem();
+        stageLineItem1.setStage(savedStage1);
+        stageLineItem1.setCompetitor(savedCompetitor1);
+        stageLineItem1.setTime(120.5);
+        stageLineItem1.setSprintPoints(10.);
+        stageLineItem1.setMountainPoints(20.);
+
+        StageLineItem stageLineItem2 = new StageLineItem();
+        stageLineItem2.setStage(savedStage1);
+        stageLineItem2.setCompetitor(savedCompetitor2);
+        stageLineItem2.setTime(110.5);
+        stageLineItem2.setSprintPoints(15.);
+        stageLineItem2.setMountainPoints(21.);
+
+        stageLineItemService.save(stageLineItem1);
+        stageLineItemService.save(stageLineItem2);
+
+
     }
 }

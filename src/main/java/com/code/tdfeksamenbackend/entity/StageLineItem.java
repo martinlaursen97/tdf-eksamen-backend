@@ -31,10 +31,10 @@ public class StageLineItem {
     private Double time;
 
     @Column(name = "mountain_points")
-    private Integer mountainPoints;
+    private Double mountainPoints;
 
     @Column(name = "sprint_points")
-    private Integer springPoints;
+    private Double sprintPoints;
 
 
 
