@@ -1,44 +1,58 @@
 package com.code.tdfeksamenbackend.service;
 
 import com.code.tdfeksamenbackend.entity.Competitor;
+import com.code.tdfeksamenbackend.repository.CompetitorRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @ActiveProfiles("test")
 class CompetitorServiceTest {
 
-    private final CompetitorService competitorService;
-    private final CountryService countryService;
-    private final TeamService teamService;
+    @Mock
+    private CompetitorRepository competitorRepository;
+    private CompetitorService underTest;
 
-    @Autowired
-    public CompetitorServiceTest(
-            CompetitorService competitorService,
-            CountryService countryService,
-            TeamService teamService) {
-        this.competitorService = competitorService;
-        this.countryService = countryService;
-        this.teamService = teamService;
+    @BeforeEach
+    void setUp() {
+        underTest = new CompetitorService(competitorRepository);
     }
 
-    //@BeforeTestClass
-    //public void setup() {
-    //
-    //}
+    @Test
+    void findAll() {
+        when(competitorRepository.findAll()).thenReturn(Stream
+                .of(new Competitor(),
+                    new Competitor(),
+                    new Competitor())
+                .collect(Collectors.toList()));
+        Assertions.assertEquals(3, underTest.findAll().size());
+    }
 
     @Test
-    void findAllByTeamId() {
-        List<Competitor> found = competitorService.findAllByTeamId(1L);
-        Assertions.assertEquals(1, found.size());
+    void save() {
+        Competitor competitor = new Competitor();
+        when(competitorRepository.save(competitor))
+                .thenReturn(competitor);
+        Assertions.assertEquals(competitor, underTest.save(competitor));
     }
 }

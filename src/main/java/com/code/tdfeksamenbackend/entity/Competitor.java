@@ -20,11 +20,11 @@ public class Competitor {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "team_id", nullable = false)
+    @JoinColumn(name = "team_id")
     private Team team;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "country_id", nullable = false)
+    @JoinColumn(name = "country_id")
     private Country country;
 
     @JsonBackReference(value = "cStageLineItems")

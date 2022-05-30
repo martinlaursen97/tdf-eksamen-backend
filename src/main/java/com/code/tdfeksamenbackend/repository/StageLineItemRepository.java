@@ -2,7 +2,7 @@ package com.code.tdfeksamenbackend.repository;
 
 
 import com.code.tdfeksamenbackend.dto.CountryDTO;
-import com.code.tdfeksamenbackend.dto.JerseyDTO;
+import com.code.tdfeksamenbackend.dto.CompetitorDTO;
 import com.code.tdfeksamenbackend.entity.StageLineItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,20 +14,20 @@ import java.util.Optional;
 @Repository
 public interface StageLineItemRepository extends JpaRepository<StageLineItem, Long> {
 
-    @Query("SELECT new com.code.tdfeksamenbackend.dto.JerseyDTO(sli.competitor, AVG(sli.time)) " +
+    @Query("SELECT new com.code.tdfeksamenbackend.dto.CompetitorDTO(sli.competitor, AVG(sli.time)) " +
             "FROM StageLineItem sli " +
             "GROUP BY sli.competitor.id")
-    Optional<List<JerseyDTO>> getTimes();
+    Optional<List<CompetitorDTO>> getTimes();
 
-    @Query("SELECT new com.code.tdfeksamenbackend.dto.JerseyDTO(sli.competitor, AVG(sli.sprintPoints)) " +
+    @Query("SELECT new com.code.tdfeksamenbackend.dto.CompetitorDTO(sli.competitor, AVG(sli.sprintPoints)) " +
             "FROM StageLineItem sli " +
             "GROUP BY sli.competitor.id")
-    Optional<List<JerseyDTO>> getSprintPts();
+    Optional<List<CompetitorDTO>> getSprintPts();
 
-    @Query("SELECT new com.code.tdfeksamenbackend.dto.JerseyDTO(sli.competitor, AVG(sli.mountainPoints)) " +
+    @Query("SELECT new com.code.tdfeksamenbackend.dto.CompetitorDTO(sli.competitor, AVG(sli.mountainPoints)) " +
             "FROM StageLineItem sli " +
             "GROUP BY sli.competitor.id")
-    Optional<List<JerseyDTO>> getMountainPts();
+    Optional<List<CompetitorDTO>> getMountainPts();
 
     @Query("SELECT new com.code.tdfeksamenbackend.dto.CountryDTO(sli.competitor.country, AVG(sli.time)) " +
            "FROM StageLineItem sli " +
@@ -49,4 +49,9 @@ public interface StageLineItemRepository extends JpaRepository<StageLineItem, Lo
             "GROUP BY c.country.id " +
             "ORDER BY AVG(sli.time) DESC")
     Optional<List<CountryDTO>> getCountryMountainPts();
+
+    @Query("SELECT new com.code.tdfeksamenbackend.dto.CompetitorDTO(sli.competitor, sli.time) " +
+            "FROM StageLineItem sli " +
+            "ORDER BY sli.time ASC")
+    Optional<List<CompetitorDTO>> getCompetitorsSortedByBestTime();
 }

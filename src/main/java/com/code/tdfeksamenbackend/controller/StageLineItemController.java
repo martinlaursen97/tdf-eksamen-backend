@@ -3,7 +3,8 @@ package com.code.tdfeksamenbackend.controller;
 import com.code.tdfeksamenbackend.constant.Discipline;
 import com.code.tdfeksamenbackend.constant.Jersey;
 import com.code.tdfeksamenbackend.dto.CountryDTO;
-import com.code.tdfeksamenbackend.dto.JerseyDTO;
+import com.code.tdfeksamenbackend.dto.CompetitorDTO;
+import com.code.tdfeksamenbackend.entity.Competitor;
 import com.code.tdfeksamenbackend.entity.StageLineItem;
 import com.code.tdfeksamenbackend.service.StageLineItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +44,11 @@ public class StageLineItemController {
 
     // DTO
     @GetMapping("/jersey/{jersey}")
-    public ResponseEntity<JerseyDTO> getJerseyOwner(@PathVariable Jersey jersey) {
-        JerseyDTO jerseyDTO = stageLineItemService.getJerseyOwner(jersey);
+    public ResponseEntity<CompetitorDTO> getJerseyOwner(@PathVariable Jersey jersey) {
+        CompetitorDTO competitorDTO = stageLineItemService.getJerseyOwner(jersey);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(jerseyDTO);
+                .body(competitorDTO);
     }
 
     @GetMapping("/discipline/{discipline}")
@@ -56,5 +57,13 @@ public class StageLineItemController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(countryDTOS);
+    }
+
+    @GetMapping("/best-times")
+    public ResponseEntity<List<CompetitorDTO>> getCompetitorsSortedByBestTime() {
+        List<CompetitorDTO> competitorDTOS = stageLineItemService.getCompetitorsSortedByBestTime();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(competitorDTOS);
     }
 }

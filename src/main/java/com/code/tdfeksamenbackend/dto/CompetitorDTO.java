@@ -2,11 +2,11 @@ package com.code.tdfeksamenbackend.dto;
 
 import com.code.tdfeksamenbackend.entity.Competitor;
 
-public class JerseyDTO {
+public class CompetitorDTO {
     private Competitor competitor;
     private Double unit;
 
-    public JerseyDTO(Competitor competitor, Double unit) {
+    public CompetitorDTO(Competitor competitor, Double unit) {
         this.competitor = competitor;
         this.unit = unit;
     }

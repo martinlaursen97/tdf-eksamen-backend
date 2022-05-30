@@ -23,6 +23,10 @@ public class CompetitorService {
         return competitorRepository.findAll(pageRequest);
     }
 
+    public List<Competitor> findAll() {
+        return competitorRepository.findAll();
+    }
+
     public Competitor save(Competitor competitor) {
         return competitorRepository.save(competitor);
     }
