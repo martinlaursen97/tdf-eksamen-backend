@@ -29,6 +29,14 @@ public class CompetitorController {
                 .body(competitors);
     }
 
+    @GetMapping("/team/{id}")
+    public ResponseEntity<List<Competitor>> fetchCompetitorsByTeamId(@PathVariable Long id) {
+        List<Competitor> competitors = competitorService.findAllByTeamId(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(competitors);
+    }
+
     @PostMapping
     public ResponseEntity<Competitor> createCompetitor(@RequestBody Competitor competitor) {
         Competitor savedCompetitor = competitorService.save(competitor);

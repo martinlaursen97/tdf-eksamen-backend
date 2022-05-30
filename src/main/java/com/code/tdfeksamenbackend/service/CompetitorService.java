@@ -26,4 +26,8 @@ public class CompetitorService {
     public void deleteCompetitorById(Long id) {
         competitorRepository.deleteById(id);
     }
+
+    public List<Competitor> findAllByTeamId(Long id) {
+        return competitorRepository.findAllByTeamId(id).orElseThrow();
+    }
 }
