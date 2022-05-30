@@ -2,6 +2,7 @@ package com.code.tdfeksamenbackend.controller;
 
 import com.code.tdfeksamenbackend.entity.Competitor;
 import com.code.tdfeksamenbackend.service.CompetitorService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,9 +46,20 @@ public class CompetitorController {
                 .body(savedCompetitor);
     }
 
-    @PutMapping
-    public ResponseEntity<Competitor> updateCompetitor(@RequestBody Competitor competitor) {
-        Competitor updatedCompetitor = competitorService.save(competitor);
+    @PutMapping("/{id}")
+    public ResponseEntity<Competitor> updateCompetitor(
+            @RequestBody Competitor competitor,
+            @PathVariable Long id) {
+
+        Competitor competitorToUpdate = competitorService.findCompetitorById(id);
+
+        competitorToUpdate.setCountry(competitor.getCountry());
+        competitorToUpdate.setTeam(competitor.getTeam());
+        competitorToUpdate.setFirstName(competitor.getFirstName());
+        competitorToUpdate.setLastName(competitor.getLastName());
+
+        Competitor updatedCompetitor = competitorService.update(competitorToUpdate);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(updatedCompetitor);

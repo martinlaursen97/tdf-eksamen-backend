@@ -19,7 +19,7 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "country_name", nullable = false)
+    @Column(name = "country_name")
     private String name;
 
     @JsonBackReference(value = "cCompetitors")

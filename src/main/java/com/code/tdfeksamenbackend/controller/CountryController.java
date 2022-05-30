@@ -29,6 +29,14 @@ public class CountryController {
                 .body(countries);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Country> fetchCountryById(@PathVariable Long id) {
+        Country country = countryService.findCountryById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(country);
+    }
+
     @PostMapping
     public ResponseEntity<Country> createCountry(@RequestBody Country country) {
         Country savedCountry = countryService.save(country);

@@ -1,6 +1,7 @@
 package com.code.tdfeksamenbackend.service;
 
 import com.code.tdfeksamenbackend.entity.Team;
+import com.code.tdfeksamenbackend.exception.ApiNotFoundException;
 import com.code.tdfeksamenbackend.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,10 @@ public class TeamService {
 
     public Team save(Team team) {
         return teamRepository.save(team);
+    }
+
+    public Team findTeamById(Long id) {
+        return teamRepository.findById(id)
+                .orElseThrow(() -> new ApiNotFoundException("Team not found with id: " + id));
     }
 }

@@ -6,6 +6,7 @@ import com.code.tdfeksamenbackend.exception.ApiNotFoundException;
 import com.code.tdfeksamenbackend.repository.CompetitorRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +41,14 @@ public class CompetitorService {
         } else {
             return competitors;
         }
+    }
+
+    public Competitor findCompetitorById(Long id) {
+        return competitorRepository.findById(id)
+                .orElseThrow(() -> new ApiNotFoundException("Competitor not found with id: " + id));
+    }
+
+    public Competitor update(Competitor competitorToUpdate) {
+        return competitorRepository.save(competitorToUpdate);
     }
 }

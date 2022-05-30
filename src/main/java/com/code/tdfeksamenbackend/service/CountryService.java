@@ -1,6 +1,7 @@
 package com.code.tdfeksamenbackend.service;
 
 import com.code.tdfeksamenbackend.entity.Country;
+import com.code.tdfeksamenbackend.exception.ApiNotFoundException;
 import com.code.tdfeksamenbackend.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,10 @@ public class CountryService {
 
     public Country save(Country country) {
         return countryRepository.save(country);
+    }
+
+    public Country findCountryById(Long id) {
+        return countryRepository.findById(id)
+                .orElseThrow(() -> new ApiNotFoundException("Country not found with id: " + id));
     }
 }

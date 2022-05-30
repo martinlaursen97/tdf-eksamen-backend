@@ -29,6 +29,14 @@ public class TeamController {
                 .body(teams);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Team> fetchTeamById(@PathVariable Long id) {
+        Team team = teamService.findTeamById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(team);
+    }
+
     @PostMapping
     public ResponseEntity<Team> createTeam(@RequestBody Team team) {
         Team createdTeam = teamService.save(team);

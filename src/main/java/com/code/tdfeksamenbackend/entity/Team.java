@@ -19,7 +19,7 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "team_name", nullable = false)
+    @Column(name = "team_name")
     private String name;
 
     @JsonBackReference(value = "tCompetitors")
