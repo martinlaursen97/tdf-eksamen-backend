@@ -33,42 +33,48 @@ public class StageLineItemService {
     }
 
     public JerseyDTO getJerseyOwner(Jersey jersey) {
-        List<StageLineItem> stageLineItems = stageLineItemRepository.findAll();
-        StageLineItem stageLineItem;
+        JerseyDTO jerseyDTO;
 
         switch (jersey) {
             case YELLOW -> {
-                stageLineItem = stageLineItems.stream()
-                        .min(Comparator.comparing(StageLineItem::getTime))
+                List<JerseyDTO> times = stageLineItemRepository.getTimes()
+                        .orElseThrow(() -> new ApiBadRequestException(""));
+
+                jerseyDTO = times.stream()
+                        .min(Comparator.comparing(JerseyDTO::getUnit))
                         .orElseThrow(() -> new ApiNotFoundException("Jersey not found: " + jersey));
-                return new JerseyDTO(stageLineItem.getCompetitor(), stageLineItem.getTime());
+
             }
-
-
             case GREEN -> {
-                stageLineItem = stageLineItems.stream()
-                        .max(Comparator.comparing(StageLineItem::getSprintPoints))
+                List<JerseyDTO> times = stageLineItemRepository.getSprintPts()
+                        .orElseThrow(() -> new ApiBadRequestException(""));
+
+                jerseyDTO = times.stream()
+                        .max(Comparator.comparing(JerseyDTO::getUnit))
                         .orElseThrow(() -> new ApiNotFoundException("Jersey not found: " + jersey));
-                return new JerseyDTO(stageLineItem.getCompetitor(), stageLineItem.getSprintPoints());
-
             }
-
             case POLKA -> {
-                stageLineItem = stageLineItems.stream()
-                        .max(Comparator.comparing(StageLineItem::getMountainPoints))
-                        .orElseThrow(() -> new ApiNotFoundException("Jersey not found: " + jersey));
-                return new JerseyDTO(stageLineItem.getCompetitor(), stageLineItem.getMountainPoints());
-            }
+                List<JerseyDTO> times = stageLineItemRepository.getMountainPts()
+                        .orElseThrow(() -> new ApiBadRequestException(""));
 
+                jerseyDTO = times.stream()
+                        .max(Comparator.comparing(JerseyDTO::getUnit))
+                        .orElseThrow(() -> new ApiNotFoundException("Jersey not found: " + jersey));
+            }
             case WHITE -> {
-                stageLineItem = stageLineItems.stream()
-                        .filter(sli -> sli.getCompetitor().getAge() < 26)
-                        .min(Comparator.comparing(StageLineItem::getTime))
-                        .orElseThrow(() -> new ApiNotFoundException("Jersey not found: " + jersey));
-                return new JerseyDTO(stageLineItem.getCompetitor(), stageLineItem.getTime());
-            }
+                List<JerseyDTO> times = stageLineItemRepository.getTimes()
+                        .orElseThrow(() -> new ApiBadRequestException(""));
 
-            default -> throw new ApiBadRequestException("Bad request: " + jersey);
+                jerseyDTO = times.stream()
+                        .filter(e -> e.getCompetitor().getAge() < 26)
+                        .min(Comparator.comparing(JerseyDTO::getUnit))
+                        .orElseThrow(() -> new ApiNotFoundException("Jersey not found: " + jersey));
+            }
+            default ->
+                    throw new ApiBadRequestException("Bad request: " + jersey);
         }
+
+        return jerseyDTO;
     }
 }
+

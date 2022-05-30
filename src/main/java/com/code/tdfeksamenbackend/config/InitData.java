@@ -102,8 +102,27 @@ public class InitData implements CommandLineRunner {
         stageLineItem2.setSprintPoints(15.);
         stageLineItem2.setMountainPoints(21.);
 
+        StageLineItem stageLineItem3 = new StageLineItem();
+        stageLineItem3.setStage(savedStage2);
+        stageLineItem3.setCompetitor(savedCompetitor1);
+        stageLineItem3.setTime(40.);
+        stageLineItem3.setSprintPoints(15.);
+        stageLineItem3.setMountainPoints(21.);
+
+        StageLineItem stageLineItem4 = new StageLineItem();
+        stageLineItem4.setStage(savedStage2);
+        stageLineItem4.setCompetitor(savedCompetitor1);
+        stageLineItem4.setTime(43.);
+        stageLineItem4.setSprintPoints(12.);
+        stageLineItem4.setMountainPoints(5.);
+
+
+
         stageLineItemService.save(stageLineItem1);
         stageLineItemService.save(stageLineItem2);
+        stageLineItemService.save(stageLineItem3);
+        stageLineItemService.save(stageLineItem4);
+
 
 
     }
