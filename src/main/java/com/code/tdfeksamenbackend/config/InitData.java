@@ -54,12 +54,14 @@ public class InitData implements CommandLineRunner {
         Competitor competitor1 = new Competitor();
         competitor1.setFirstName("Martin");
         competitor1.setLastName("Laursen");
+        competitor1.setAge(20);
         competitor1.setCountry(savedCountry1);
         competitor1.setTeam(savedTeam1);
 
         Competitor competitor2 = new Competitor();
         competitor2.setFirstName("Kenned");
         competitor2.setLastName("Larsen");
+        competitor2.setAge(30);
         competitor2.setCountry(savedCountry2);
         competitor2.setTeam(savedTeam2);
 
