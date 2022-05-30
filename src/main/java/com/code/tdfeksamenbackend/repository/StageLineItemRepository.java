@@ -50,8 +50,9 @@ public interface StageLineItemRepository extends JpaRepository<StageLineItem, Lo
             "ORDER BY AVG(sli.time) DESC")
     Optional<List<CountryDTO>> getCountryMountainPts();
 
-    @Query("SELECT new com.code.tdfeksamenbackend.dto.CompetitorDTO(sli.competitor, sli.time) " +
+    @Query("SELECT new com.code.tdfeksamenbackend.dto.CompetitorDTO(sli.competitor, AVG(sli.time)) " +
             "FROM StageLineItem sli " +
-            "ORDER BY sli.time ASC")
+            "GROUP BY sli.competitor.id " +
+            "ORDER BY sli.time DESC")
     Optional<List<CompetitorDTO>> getCompetitorsSortedByBestTime();
 }
