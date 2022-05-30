@@ -1,6 +1,7 @@
 package com.code.tdfeksamenbackend.repository;
 
 
+import com.code.tdfeksamenbackend.dto.CountryDTO;
 import com.code.tdfeksamenbackend.dto.JerseyDTO;
 import com.code.tdfeksamenbackend.entity.StageLineItem;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +28,22 @@ public interface StageLineItemRepository extends JpaRepository<StageLineItem, Lo
             "FROM StageLineItem sli " +
             "GROUP BY sli.competitor.id")
     Optional<List<JerseyDTO>> getMountainPts();
+
+    @Query("SELECT new com.code.tdfeksamenbackend.dto.CountryDTO(sli.competitor.country, AVG(sli.time)) " +
+           "FROM StageLineItem sli " +
+           "JOIN Competitor c ON c.id = sli.competitor.id " +
+           "GROUP BY c.country.id")
+    Optional<List<CountryDTO>> getCountryTimes();
+
+    @Query("SELECT new com.code.tdfeksamenbackend.dto.CountryDTO(sli.competitor.country, AVG(sli.sprintPoints)) " +
+            "FROM StageLineItem sli " +
+            "JOIN Competitor c ON c.id = sli.competitor.id " +
+            "GROUP BY c.country.id")
+    Optional<List<CountryDTO>> getCountrySprintPts();
+
+    @Query("SELECT new com.code.tdfeksamenbackend.dto.CountryDTO(sli.competitor.country, AVG(sli.mountainPoints)) " +
+            "FROM StageLineItem sli " +
+            "JOIN Competitor c ON c.id = sli.competitor.id " +
+            "GROUP BY c.country.id")
+    Optional<List<CountryDTO>> getCountryMountainPts();
 }

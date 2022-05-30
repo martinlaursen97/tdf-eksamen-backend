@@ -1,7 +1,10 @@
 package com.code.tdfeksamenbackend.service;
 
 
+import com.code.tdfeksamenbackend.constant.Discipline;
+import com.code.tdfeksamenbackend.dto.CountryDTO;
 import com.code.tdfeksamenbackend.dto.JerseyDTO;
+import com.code.tdfeksamenbackend.entity.Country;
 import com.code.tdfeksamenbackend.entity.StageLineItem;
 import com.code.tdfeksamenbackend.exception.ApiBadRequestException;
 import com.code.tdfeksamenbackend.exception.ApiNotFoundException;
@@ -32,13 +35,32 @@ public class StageLineItemService {
         return stageLineItemRepository.save(stageLineItem);
     }
 
+    public List<CountryDTO> getCountryDTOByDiscipline(Discipline discipline) {
+        List<CountryDTO> countryDTOS;
+
+        switch (discipline) {
+            case TIME -> countryDTOS  = stageLineItemRepository.getCountryTimes()
+                    .orElseThrow(() -> new ApiNotFoundException("Not found: " + discipline));
+
+            case SPRINT -> countryDTOS = stageLineItemRepository.getCountrySprintPts()
+                    .orElseThrow(() -> new ApiNotFoundException("Not found: " + discipline));
+
+            case MOUNTAIN -> countryDTOS = stageLineItemRepository.getCountryMountainPts()
+                    .orElseThrow(() -> new ApiNotFoundException("Not found: " + discipline));
+
+            default ->
+                    throw new ApiBadRequestException("Bad request: " +  discipline);
+        }
+        return countryDTOS;
+    }
+
     public JerseyDTO getJerseyOwner(Jersey jersey) {
         JerseyDTO jerseyDTO;
 
         switch (jersey) {
             case YELLOW -> {
                 List<JerseyDTO> times = stageLineItemRepository.getTimes()
-                        .orElseThrow(() -> new ApiBadRequestException(""));
+                        .orElseThrow(() -> new ApiBadRequestException("Bad request: " + jersey));
 
                 jerseyDTO = times.stream()
                         .min(Comparator.comparing(JerseyDTO::getUnit))
@@ -47,7 +69,7 @@ public class StageLineItemService {
             }
             case GREEN -> {
                 List<JerseyDTO> times = stageLineItemRepository.getSprintPts()
-                        .orElseThrow(() -> new ApiBadRequestException(""));
+                        .orElseThrow(() -> new ApiBadRequestException("Bad request: " + jersey));
 
                 jerseyDTO = times.stream()
                         .max(Comparator.comparing(JerseyDTO::getUnit))
@@ -55,7 +77,7 @@ public class StageLineItemService {
             }
             case POLKA -> {
                 List<JerseyDTO> times = stageLineItemRepository.getMountainPts()
-                        .orElseThrow(() -> new ApiBadRequestException(""));
+                        .orElseThrow(() -> new ApiBadRequestException("Bad request: " + jersey));
 
                 jerseyDTO = times.stream()
                         .max(Comparator.comparing(JerseyDTO::getUnit))
@@ -63,7 +85,7 @@ public class StageLineItemService {
             }
             case WHITE -> {
                 List<JerseyDTO> times = stageLineItemRepository.getTimes()
-                        .orElseThrow(() -> new ApiBadRequestException(""));
+                        .orElseThrow(() -> new ApiBadRequestException("Bad request: " + jersey));
 
                 jerseyDTO = times.stream()
                         .filter(e -> e.getCompetitor().getAge() < 26)

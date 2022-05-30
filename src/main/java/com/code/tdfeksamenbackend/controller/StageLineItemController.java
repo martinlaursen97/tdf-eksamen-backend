@@ -1,6 +1,8 @@
 package com.code.tdfeksamenbackend.controller;
 
+import com.code.tdfeksamenbackend.constant.Discipline;
 import com.code.tdfeksamenbackend.constant.Jersey;
+import com.code.tdfeksamenbackend.dto.CountryDTO;
 import com.code.tdfeksamenbackend.dto.JerseyDTO;
 import com.code.tdfeksamenbackend.entity.StageLineItem;
 import com.code.tdfeksamenbackend.service.StageLineItemService;
@@ -47,5 +49,13 @@ public class StageLineItemController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(jerseyDTO);
+    }
+
+    @GetMapping("/discipline/{discipline}")
+    public ResponseEntity<List<CountryDTO>> getCountryScores(@PathVariable Discipline discipline) {
+        List<CountryDTO> countryDTOS = stageLineItemService.getCountryDTOByDiscipline(discipline);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(countryDTOS);
     }
 }
