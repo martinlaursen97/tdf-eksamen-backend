@@ -1,6 +1,7 @@
 package com.code.tdfeksamenbackend.service;
 
-import com.code.tdfeksamenbackend.controller.StageLineItem;
+import com.code.tdfeksamenbackend.controller.StageLineItemController;
+import com.code.tdfeksamenbackend.entity.StageLineItem;
 import com.code.tdfeksamenbackend.repository.StageLineItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

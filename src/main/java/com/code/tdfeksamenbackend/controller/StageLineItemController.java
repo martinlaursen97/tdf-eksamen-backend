@@ -1,5 +1,6 @@
 package com.code.tdfeksamenbackend.controller;
 
+import com.code.tdfeksamenbackend.entity.StageLineItem;
 import com.code.tdfeksamenbackend.service.StageLineItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,12 +12,12 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/stage-line-items")
-public class StageLineItem {
+public class StageLineItemController {
 
     private final StageLineItemService stageLineItemService;
 
     @Autowired
-    public StageLineItem(StageLineItemService stageLineItemService) {
+    public StageLineItemController(StageLineItemService stageLineItemService) {
         this.stageLineItemService = stageLineItemService;
     }
 
