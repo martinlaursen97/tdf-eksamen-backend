@@ -6,7 +6,6 @@ import com.code.tdfeksamenbackend.dto.CountryDTO;
 import com.code.tdfeksamenbackend.dto.JerseyDTO;
 import com.code.tdfeksamenbackend.entity.StageLineItem;
 import com.code.tdfeksamenbackend.service.StageLineItemService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

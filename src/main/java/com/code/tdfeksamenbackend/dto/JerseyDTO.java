@@ -1,8 +1,6 @@
 package com.code.tdfeksamenbackend.dto;
 
 import com.code.tdfeksamenbackend.entity.Competitor;
-import lombok.Getter;
-import lombok.Setter;
 
 public class JerseyDTO {
     private Competitor competitor;

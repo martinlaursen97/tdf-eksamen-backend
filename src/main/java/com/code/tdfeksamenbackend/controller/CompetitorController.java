@@ -1,8 +1,8 @@
 package com.code.tdfeksamenbackend.controller;
 
 import com.code.tdfeksamenbackend.entity.Competitor;
+import com.code.tdfeksamenbackend.exception.ApiNotFoundException;
 import com.code.tdfeksamenbackend.service.CompetitorService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -88,5 +88,10 @@ public class CompetitorController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .build();
+    }
+
+    @GetMapping("/exception-example")
+    public ResponseEntity<Competitor> customExceptionThrownExample() {
+        throw new ApiNotFoundException("Example");
     }
 }

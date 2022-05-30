@@ -1,6 +1,5 @@
 package com.code.tdfeksamenbackend.dto;
 
-import com.code.tdfeksamenbackend.entity.Competitor;
 import com.code.tdfeksamenbackend.entity.Country;
 
 public class CountryDTO {

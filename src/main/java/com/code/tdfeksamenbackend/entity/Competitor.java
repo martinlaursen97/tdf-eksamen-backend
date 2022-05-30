@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.yaml.snakeyaml.events.Event;
 
 import javax.persistence.*;
 import java.util.List;

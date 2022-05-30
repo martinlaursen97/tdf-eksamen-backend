@@ -1,10 +1,8 @@
 package com.code.tdfeksamenbackend.service;
 
-
 import com.code.tdfeksamenbackend.constant.Discipline;
 import com.code.tdfeksamenbackend.dto.CountryDTO;
 import com.code.tdfeksamenbackend.dto.JerseyDTO;
-import com.code.tdfeksamenbackend.entity.Country;
 import com.code.tdfeksamenbackend.entity.StageLineItem;
 import com.code.tdfeksamenbackend.exception.ApiBadRequestException;
 import com.code.tdfeksamenbackend.exception.ApiNotFoundException;
@@ -12,7 +10,6 @@ import com.code.tdfeksamenbackend.repository.StageLineItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.code.tdfeksamenbackend.constant.Jersey;
-
 
 import java.util.Comparator;
 import java.util.List;
