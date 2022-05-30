@@ -4,11 +4,15 @@ import com.code.tdfeksamenbackend.entity.Competitor;
 import com.code.tdfeksamenbackend.service.CompetitorService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -23,8 +27,20 @@ public class CompetitorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Competitor>> fetchCompetitors() {
-        List<Competitor> competitors = competitorService.findAll();
+    public ResponseEntity<Page<Competitor>> fetchCompetitors(
+            @RequestParam Optional<Integer> page,
+            @RequestParam Optional<String> sortBy,
+            @RequestParam Optional<Sort.Direction> sortDirection
+    ) {
+
+        Page<Competitor> competitors = competitorService.findAll(
+                PageRequest.of(
+                        page.orElse(0),
+                        10,
+                        sortDirection.orElse(Sort.Direction.ASC), sortBy.orElse("id")
+                )
+        );
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(competitors);

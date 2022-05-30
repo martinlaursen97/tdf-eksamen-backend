@@ -4,6 +4,8 @@ import com.code.tdfeksamenbackend.entity.Competitor;
 import com.code.tdfeksamenbackend.exception.ApiBadRequestException;
 import com.code.tdfeksamenbackend.exception.ApiNotFoundException;
 import com.code.tdfeksamenbackend.repository.CompetitorRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,8 +21,8 @@ public class CompetitorService {
         this.competitorRepository = competitorRepository;
     }
 
-    public List<Competitor> findAll() {
-        return competitorRepository.findAll();
+    public Page<Competitor> findAll(PageRequest pageRequest) {
+        return competitorRepository.findAll(pageRequest);
     }
 
     public Competitor save(Competitor competitor) {
