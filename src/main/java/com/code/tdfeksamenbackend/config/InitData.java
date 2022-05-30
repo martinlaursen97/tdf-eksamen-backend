@@ -32,20 +32,20 @@ public class InitData implements CommandLineRunner {
     public void run(String... args) {
         // Countries
         Country country1 = new Country();
-        country1.setCountryName("Denmark");
+        country1.setName("Denmark");
 
         Country country2 = new Country();
-        country2.setCountryName("France");
+        country2.setName("France");
 
         Country savedCountry1 = countryService.save(country1);
         Country savedCountry2 = countryService.save(country2);
 
         // Teams
         Team team1 = new Team();
-        team1.setTeamName("T1");
+        team1.setName("T1");
 
         Team team2 = new Team();
-        team2.setTeamName("T2");
+        team2.setName("T2");
 
         Team savedTeam1 = teamService.save(team1);
         Team savedTeam2 = teamService.save(team2);

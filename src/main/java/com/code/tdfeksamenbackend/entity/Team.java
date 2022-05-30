@@ -20,7 +20,7 @@ public class Team {
     private Long id;
 
     @Column(name = "team_name", nullable = false)
-    private String teamName;
+    private String name;
 
     @JsonBackReference(value = "tCompetitors")
     @OneToMany(mappedBy = "team", cascade = CascadeType.MERGE)

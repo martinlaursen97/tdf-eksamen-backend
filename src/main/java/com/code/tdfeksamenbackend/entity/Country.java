@@ -20,7 +20,7 @@ public class Country {
     private Long id;
 
     @Column(name = "country_name", nullable = false)
-    private String countryName;
+    private String name;
 
     @JsonBackReference(value = "cCompetitors")
     @OneToMany(mappedBy = "country", cascade = CascadeType.MERGE)
