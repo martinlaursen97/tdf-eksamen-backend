@@ -32,18 +32,21 @@ public interface StageLineItemRepository extends JpaRepository<StageLineItem, Lo
     @Query("SELECT new com.code.tdfeksamenbackend.dto.CountryDTO(sli.competitor.country, AVG(sli.time)) " +
            "FROM StageLineItem sli " +
            "JOIN Competitor c ON c.id = sli.competitor.id " +
-           "GROUP BY c.country.id")
+           "GROUP BY c.country.id " +
+            "ORDER BY AVG(sli.time) DESC")
     Optional<List<CountryDTO>> getCountryTimes();
 
     @Query("SELECT new com.code.tdfeksamenbackend.dto.CountryDTO(sli.competitor.country, AVG(sli.sprintPoints)) " +
             "FROM StageLineItem sli " +
             "JOIN Competitor c ON c.id = sli.competitor.id " +
-            "GROUP BY c.country.id")
+            "GROUP BY c.country.id " +
+            "ORDER BY AVG(sli.time) DESC")
     Optional<List<CountryDTO>> getCountrySprintPts();
 
     @Query("SELECT new com.code.tdfeksamenbackend.dto.CountryDTO(sli.competitor.country, AVG(sli.mountainPoints)) " +
             "FROM StageLineItem sli " +
             "JOIN Competitor c ON c.id = sli.competitor.id " +
-            "GROUP BY c.country.id")
+            "GROUP BY c.country.id " +
+            "ORDER BY AVG(sli.time) DESC")
     Optional<List<CountryDTO>> getCountryMountainPts();
 }
