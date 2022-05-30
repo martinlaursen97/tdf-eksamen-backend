@@ -29,7 +29,7 @@ public class Competitor {
     private Country country;
 
     @JsonBackReference(value = "cStageLineItems")
-    @OneToMany(mappedBy = "competitor", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "competitor", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<StageLineItem> stageLineItems;
 

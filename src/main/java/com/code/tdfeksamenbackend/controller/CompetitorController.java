@@ -73,6 +73,7 @@ public class CompetitorController {
         competitorToUpdate.setTeam(competitor.getTeam());
         competitorToUpdate.setFirstName(competitor.getFirstName());
         competitorToUpdate.setLastName(competitor.getLastName());
+        competitorToUpdate.setAge(competitor.getAge());
 
         Competitor updatedCompetitor = competitorService.update(competitorToUpdate);
 
