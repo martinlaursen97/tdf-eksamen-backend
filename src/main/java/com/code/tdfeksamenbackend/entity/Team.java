@@ -15,7 +15,7 @@ import java.util.List;
 public class Team {
 
     @Id
-    @Column(name = "team_id")
+    @Column(name = "team_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -26,5 +26,4 @@ public class Team {
     @OneToMany(mappedBy = "team", cascade = CascadeType.MERGE)
     @ToString.Exclude
     private List<Competitor> competitors;
-
 }

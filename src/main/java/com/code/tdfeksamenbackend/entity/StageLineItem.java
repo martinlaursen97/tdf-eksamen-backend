@@ -19,11 +19,11 @@ public class StageLineItem {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "stage_id", nullable = false)
+    @JoinColumn(name = "stage_id")
     private Stage stage;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "competitor_id", nullable = false)
+    @JoinColumn(name = "competitor_id")
     private Competitor competitor;
 
     @Column(name = "time")
@@ -34,7 +34,4 @@ public class StageLineItem {
 
     @Column(name = "sprint_points")
     private Double sprintPoints;
-
-
-
 }

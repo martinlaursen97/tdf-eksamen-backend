@@ -32,14 +32,12 @@ public class Competitor {
     @ToString.Exclude
     private List<StageLineItem> stageLineItems;
 
-
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "age", nullable = false)
+    @Column(name = "age")
     private Integer age;
-
 }

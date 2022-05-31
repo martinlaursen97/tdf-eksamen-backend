@@ -26,5 +26,4 @@ public class Stage {
 
     @Column(name = "date")
     private LocalDateTime date;
-
 }

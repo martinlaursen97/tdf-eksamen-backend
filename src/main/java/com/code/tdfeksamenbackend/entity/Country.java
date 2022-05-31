@@ -26,5 +26,4 @@ public class Country {
     @OneToMany(mappedBy = "country", cascade = CascadeType.MERGE)
     @ToString.Exclude
     private List<Competitor> competitors;
-
 }

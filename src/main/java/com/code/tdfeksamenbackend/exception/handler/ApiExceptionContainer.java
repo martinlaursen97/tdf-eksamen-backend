@@ -19,7 +19,6 @@ public class ApiExceptionContainer {
         return message;
     }
 
-
     public HttpStatus getHttpStatus() {
         return httpStatus;
     }
