@@ -35,12 +35,6 @@ class StageLineItemServiceTest {
     @Mock
     private StageLineItemRepository stageLineItemRepository;
 
-    @Autowired
-    private CountryRepository countryRepository;
-    @Autowired
-    private CompetitorRepository competitorRepository;
-
-
     @BeforeEach
     void setUp() {
         underTest = new StageLineItemService(stageLineItemRepository);
