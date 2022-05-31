@@ -97,7 +97,8 @@ public class StageLineItemService {
     }
 
     public List<CompetitorDTO> getCompetitorsSortedByBestTime() {
-        return stageLineItemRepository.getCompetitorsSortedByBestTime().orElseThrow(() -> new ApiNotFoundException("Competitors not found"));
+        return stageLineItemRepository.getCompetitorsSortedByBestTime()
+                .orElseThrow(() -> new ApiNotFoundException("Competitors not found"));
     }
 }
 

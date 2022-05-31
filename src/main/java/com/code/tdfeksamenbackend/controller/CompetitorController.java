@@ -36,7 +36,7 @@ public class CompetitorController {
         Page<Competitor> competitors = competitorService.findAll(
                 PageRequest.of(
                         page.orElse(0),
-                        3,
+                        8,
                         sortDirection.orElse(Sort.Direction.ASC), sortBy.orElse("id")
                 )
         );
